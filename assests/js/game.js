@@ -101,10 +101,6 @@ var startGame = function() {
             break;
         }
     }
-    // run upon page loading
-    startGame();
-    // after loop ends by being out of health or out of enemies to fight, send player to endGame function
-    endGame();
 };
 
 // function to end entire game
@@ -124,3 +120,8 @@ var endGame = function() {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
 };
+
+// run upon page loading
+startGame();
+// after loop ends by being out of health or out of enemies to fight, send player to endGame function
+endGame();
