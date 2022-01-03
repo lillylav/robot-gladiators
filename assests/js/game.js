@@ -1,3 +1,4 @@
+// FIGHT SEQUENCE START
 var fight = function (enemy) {
     while (playerInfo.health > 0 && enemy.health > 0) {
         // fight choice prompt
@@ -68,8 +69,10 @@ var fight = function (enemy) {
         console.log(playerInfo.name, playerInfo.health, playerInfo.attack, playerInfo.money);
     }
 };
+// FIGHT SEQUENCE END
 
 
+// GAME & PLAYER INFO START
 // random number generator
 var randomNumber = function(min, max) {
     //generate random number between 40 & 60
@@ -78,10 +81,19 @@ var randomNumber = function(min, max) {
     return value;
 };
 
+// player's name validation
+var getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null){
+        name = prompt("What's your robot's name?");
+    }
+    console.log("Your robot's name is " + name);
+    return name;
+};
 
 // initial variables for player's robot
 var playerInfo = {
-    name: window.prompt("What's your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -114,19 +126,24 @@ var playerInfo = {
 var enemyInfo = [
     {
         name: "Roborto",
-        attack: randomNumber(10, 14)
+        attack: randomNumber(10, 14),
+        health: randomNumber(40, 60)
     },
     {
         name: "Amy Android",
-        attack: randomNumber(10, 14)
+        attack: randomNumber(10, 14),
+        health: randomNumber(40, 60)
     },
     {
         name: "Robo Trumble",
-        attack: randomNumber(10,14)
+        attack: randomNumber(10,14),
+        health: randomNumber(40, 60)
     }
 ];
+// GAME & PLAYER INFO END
 
 
+// GAME START/STOP CRITERIA & FUNCTIONS START
 // function to start new game when all rounds are played
 var startGame = function() {
     // reset player stats
@@ -183,7 +200,10 @@ var endGame = function() {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
 };
+// GAME START/STOP CRITERIA & FUNCTIONS END
 
+
+// GAME SHOP START
 var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
@@ -218,7 +238,9 @@ var shop = function() {
             break;
     }
 };
+// GAME SHOP END
 
+// RUN JS FILE
 // run upon page loading
 startGame();
 // after loop ends by being out of health or out of enemies to fight, send player to endGame function
