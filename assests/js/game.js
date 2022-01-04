@@ -1,7 +1,7 @@
 // fight or skip data validation loop
 var fightOrSkip = function() {
     // fight choice prompt
-    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? SKIP will cost you 10 points. Enter 'FIGHT' or 'SKIP' to choose.");
 
     // conditional recursive function call
     if (!promptFight) {
@@ -18,7 +18,7 @@ var fightOrSkip = function() {
     
         //if yes (true), leave fight
         if (confirmSkip) {
-            window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+            window.alert(playerInfo.name + " has decided to skip this fight. 10 points have been deducted from " + playerInfo.name + "'s score. Goodbye!");
             // subtract money from playerInfo.money variable for skipping
             playerInfo.money = Math.max(0, playerInfo.money - 10);
             
@@ -48,7 +48,7 @@ var fight = function(enemy) {
         );
         // check enemy health
         if (enemy.health <= 0) {
-            window.alert(enemy.name + " has died!");
+            window.alert(enemy.name + " has died! " + playerInfo.name + " has been awarded 20 points!");
 
             // award player money for winning
             playerInfo.money = playerInfo.money + 20;
@@ -114,7 +114,7 @@ var playerInfo = {
     },
     refillHealth: function() {
         if(this.money>= 7) {
-            window.alert("Refilling player's health by 20 for 7 dollars.");
+            window.alert("Refilling player's health by 20 for 7 points. Player health is now " + playerInfo.health + ".");
             this.health += 20;
             this.money -= 7;
         } else {
@@ -123,7 +123,7 @@ var playerInfo = {
     },
     upgradeAttack: function() {
         if (this.money >= 7) {
-            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+            window.alert("Upgrading player's attack by 6 for 7 points. Player attack will now be boosted by 6.");
             this.attack += 6;
             this.money -= 7;
         } else {
@@ -197,7 +197,7 @@ var startGame = function() {
 var endGame = function() {
     if (playerInfo.health > 0) {
         // if player wins
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+        window.alert("Great job, " + playerInfo.name + " survived the game with " + playerInfo.money + " points! " + playerInfo.name + " WINS!!");
     } else {
         // if player loses
         window.alert("You've lost your robot in battle.")
@@ -217,26 +217,23 @@ var endGame = function() {
 var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-        "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter your selection: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+        playerInfo.name + " has " + playerInfo.money + " points and " + playerInfo.health + " health remaining. Would you like to REFILL your health by 20 for 7 points, UPGRADE your attack by 6 for 7 points, or LEAVE the store? Please enter your selection: 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE."
     );
+
+    // convert from string to integer
+    shopOptionPrompt = parseInt(shopOptionPrompt);
 
     // use switch to carry out action
     switch (shopOptionPrompt) {
-        case "REFILL":
-        case "Refill":
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
 
-        case "UPGRADE":
-        case "Upgrade":
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
         
-        case "LEAVE":
-        case "Leave":
-        case "leave":
+        case 3:
             window.alert("Leaving the store.");
             //do nothing so function will end
             break;
