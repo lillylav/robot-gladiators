@@ -31,6 +31,14 @@ var fightOrSkip = function() {
 
 // FIGHT SEQUENCE START
 var fight = function(enemy) {
+    // keep track of who goes first
+    var isPlayerTurn = true;
+
+    // randomly assign player or enemy to go first
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
+
     // repeat and execute fight as long as player and enemy health > 0
     while (playerInfo.health > 0 && enemy.health > 0) {
         if (fightOrSkip()) {
@@ -44,7 +52,14 @@ var fight = function(enemy) {
         // subtract playerInfo.attack variable from enemy.health variable
         enemy.health = Math.max(0, enemy.health - damage);
             console.log(
-            playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
+            playerInfo.name 
+            + " attacked " 
+            + enemy.name 
+            + ". " 
+            + enemy.name 
+            + " now has " 
+            + enemy.health 
+            + " health remaining."
         );
         // check enemy health
         if (enemy.health <= 0) {
@@ -59,13 +74,21 @@ var fight = function(enemy) {
             // display results of attack
             window.alert(enemy.name + " still has " + enemy.health + " health remaining.");
         }
+        
         // generate random damage value based on enemy's attack power
         var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
         // substract enemy.attack variable from playerInfo.health variable
         playerInfo.health = Math.max(0, playerInfo.health - damage);
         console.log(
-            enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
+            enemy.name 
+            + " attacked " 
+            + playerInfo.name 
+            + ". " 
+            + playerInfo.name 
+            + " now has " 
+            + playerInfo.health 
+            + " health remaining."
         );
 
         // check player's health
@@ -78,6 +101,8 @@ var fight = function(enemy) {
             window.alert(playerInfo.name + " still has " + playerInfo.health + " health remaining.");
         }
     }
+    // switch turn order for next round
+    isPlayerTurn = !isPlayerTurn;
 };
 // FIGHT SEQUENCE END
 
